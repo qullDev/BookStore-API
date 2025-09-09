@@ -1,0 +1,4 @@
+.idea
+.env
+cmd/api/tmp/
+cmd/api/.air.toml
