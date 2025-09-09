@@ -8,6 +8,7 @@ import (
 	"github.com/qullDev/BookStore-API/internal/models"
 )
 
+// GetAuthors retrieves all authors from the database
 func GetAuthors(c *gin.Context) {
 	// Implementation for getting all authors
 	var authors []models.Author
@@ -20,6 +21,7 @@ func GetAuthors(c *gin.Context) {
 	c.JSON(http.StatusOK, authors)
 }
 
+// GetAuthorByID retrieves a single author by ID from the database
 func GetAuthorByID(c *gin.Context) {
 	// Implementation for getting an author by ID
 	id := c.Param("id")
@@ -33,6 +35,7 @@ func GetAuthorByID(c *gin.Context) {
 	c.JSON(http.StatusOK, author)
 }
 
+// CreateAuthor creates a new author in the database
 type CreateAuthorInput struct {
 	Name string `json:"name" binding:"required"`
 }
@@ -54,6 +57,7 @@ func CreateAuthor(c *gin.Context) {
 	c.JSON(http.StatusCreated, author)
 }
 
+// UpdateAuthor updates an existing author in the database
 type UpdateAuthorInput struct {
 	Name string `json:"name"`
 }
