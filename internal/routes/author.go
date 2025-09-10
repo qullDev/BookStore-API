@@ -5,11 +5,11 @@ import (
 	"github.com/qullDev/BookStore-API/internal/controllers"
 )
 
-func AuthorRoutes(api *gin.RouterGroup) {
+func AuthorRoutes(r *gin.RouterGroup) {
 
-	api.GET("/authors", controllers.GetAuthors)
-	api.GET("/authors/:id", controllers.GetAuthorByID)
-	api.POST("/authors", controllers.CreateAuthor)
-	api.PUT("/authors/:id", controllers.UpdateAuthor)
-	api.DELETE("/authors/:id", controllers.DeleteAuthor)
+	r.GET("/authors", controllers.GetAuthors)
+	r.GET("/authors/:id", controllers.GetAuthorByID)
+	r.POST("/authors", controllers.CreateAuthor)
+	r.PUT("/authors/:id", controllers.UpdateAuthor)
+	r.DELETE("/authors/:id", controllers.DeleteAuthor)
 }
