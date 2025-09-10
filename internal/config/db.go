@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -13,23 +12,28 @@ var DB *gorm.DB
 
 func InitDB() {
 
-	user := os.Getenv("DATABASE_USER")
-	password := os.Getenv("DATABASE_PASSWORD")
-	host := os.Getenv("DATABASE_HOST")
-	port := os.Getenv("DATABASE_PORT")
-	dbname := os.Getenv("DATABASE_NAME")
-	sslmode := os.Getenv("SSL_MODE")
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
-		host, user, password, dbname, port, sslmode)
-
+	dsn := os.Getenv("DATABASE_URL")
+	if dsn == "" {
+		log.Fatal("missing required DATABASE_URL")
+	}
 	var db *gorm.DB
 	var err error
 
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		panic("Failed to connect to database")
+		log.Fatalf("Failed to connect to database: %v", err)
+	}
+
+	// Test the connection
+	sqlDB, err := db.DB()
+	if err != nil {
+		log.Fatalf("Failed to get database instance: %v", err)
+	}
+
+	if err := sqlDB.Ping(); err != nil {
+		log.Fatalf("Failed to ping database: %v", err)
 	}
 
 	DB = db
-	log.Print("Database connection established")
+	log.Print("Database connection established successfully")
 }
