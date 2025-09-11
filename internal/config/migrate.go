@@ -13,6 +13,7 @@ func MigrateDB() {
 		&models.Author{},
 		&models.Category{},
 		&models.Book{},
+		&models.Payment{},
 	)
 
 	if err != nil {
